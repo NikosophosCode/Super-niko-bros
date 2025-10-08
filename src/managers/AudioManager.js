@@ -82,10 +82,21 @@ export class AudioManager {
   }
 
   startMusicTrack(key, { loop, volume }) {
+    // Verificar que el audio existe en la cache
+    if (!this.scene.cache.audio.exists(key)) {
+      console.warn(`Audio key "${key}" not found in cache. Skipping music playback.`);
+      return;
+    }
+
     let sound = this.scene.sound.get(key);
 
     if (!sound) {
-      sound = this.scene.sound.add(key, { loop, volume });
+      try {
+        sound = this.scene.sound.add(key, { loop, volume });
+      } catch (error) {
+        console.error(`Error adding audio "${key}":`, error);
+        return;
+      }
     } else {
       sound.setLoop(loop);
     }
@@ -128,9 +139,20 @@ export class AudioManager {
   }
 
   playSfx(key, config = {}) {
+    // Verificar que el audio existe en la cache
+    if (!this.scene.cache.audio.exists(key)) {
+      console.warn(`SFX key "${key}" not found in cache. Skipping sound playback.`);
+      return;
+    }
+
     if (!this.sfx.has(key)) {
-      const sound = this.scene.sound.add(key);
-      this.sfx.set(key, sound);
+      try {
+        const sound = this.scene.sound.add(key);
+        this.sfx.set(key, sound);
+      } catch (error) {
+        console.error(`Error adding SFX "${key}":`, error);
+        return;
+      }
     }
 
     const sound = this.sfx.get(key);

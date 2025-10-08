@@ -22,7 +22,6 @@ export const IMAGE_ASSETS = [
 
 export const TILEBLOCK_ASSETS = [
   { key: 'block-overworld', url: 'blocks/overworld/block.png' },
-  { key: 'block2-overworld', url: 'blocks/overworld/block2.png' },
   { key: 'brick-debris-overworld', url: 'blocks/overworld/brick-debris.png' },
   { key: 'custom-block-overworld', url: 'blocks/overworld/customBlock.png' },
   { key: 'immovable-block-overworld', url: 'blocks/overworld/immovableBlock.png' },

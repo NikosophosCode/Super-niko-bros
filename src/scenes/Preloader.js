@@ -66,33 +66,17 @@ export class PreloaderScene extends BaseScene {
 			percentText.destroy();
 		});
 
-		// Cargar assets principales (sin audio)
+		// Cargar todos los assets incluyendo audio
 		this.assetLoader.preloadGameAssets();
+		this.assetLoader.preloadAudio();
 		this.assetLoader.loadBitmapFonts();
 	}
 
 	create() {
 		registerAnimations(this);
+		this.audioLoaded = true;
 		
-		// Iniciar carga de audio en segundo plano
-		this.loadAudioInBackground();
-		
-		// Ir al menú principal inmediatamente
+		// Ir al menú principal
 		this.scene.start(SceneKeys.MAIN_MENU);
-	}
-
-	loadAudioInBackground() {
-		// Crear un loader temporal para audio
-		const audioLoader = new Phaser.Loader.LoaderPlugin(this);
-		
-		this.assetLoader.scene = { load: audioLoader };
-		this.assetLoader.preloadAudio();
-		
-		audioLoader.once('complete', () => {
-			this.audioLoaded = true;
-			console.log('✓ Audio cargado en segundo plano');
-		});
-		
-		audioLoader.start();
 	}
 }
