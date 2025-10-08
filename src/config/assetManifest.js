@@ -22,6 +22,7 @@ export const IMAGE_ASSETS = [
 
 export const TILEBLOCK_ASSETS = [
   { key: 'block-overworld', url: 'blocks/overworld/block.png' },
+  { key: 'block2-overworld', url: 'blocks/overworld/block2.png' },
   { key: 'brick-debris-overworld', url: 'blocks/overworld/brick-debris.png' },
   { key: 'custom-block-overworld', url: 'blocks/overworld/customBlock.png' },
   { key: 'immovable-block-overworld', url: 'blocks/overworld/immovableBlock.png' },
@@ -123,12 +124,12 @@ export const SPRITESHEET_ASSETS = [
 
 export const AUDIO_ASSETS = {
   music: [
-    { key: 'music-overworld-theme', url: 'sound/music/overworld/theme.mp3' },
-    { key: 'music-overworld-hurry', url: 'sound/music/overworld/hurry-up-theme.mp3' },
-    { key: 'music-underground-theme', url: 'sound/music/underground/theme.mp3' },
-    { key: 'music-underground-hurry', url: 'sound/music/underground/hurry-up-theme.mp3' },
-    { key: 'music-win', url: 'sound/music/win.wav' },
-    { key: 'music-gameover', url: 'sound/music/gameover.mp3' }
+    { key: 'music-overworld-theme', url: 'sound/music/overworld/theme.mp3', priority: 1 },
+    { key: 'music-underground-theme', url: 'sound/music/underground/theme.mp3', priority: 2 },
+    { key: 'music-overworld-hurry', url: 'sound/music/overworld/hurry-up-theme.mp3', priority: 3 },
+    { key: 'music-underground-hurry', url: 'sound/music/underground/hurry-up-theme.mp3', priority: 3 },
+    { key: 'music-win', url: 'sound/music/win.wav', priority: 4 },
+    { key: 'music-gameover', url: 'sound/music/gameover.mp3', priority: 4 }
   ],
   sfx: [
     { key: 'sfx-coin', url: 'sound/effects/coin.mp3' },

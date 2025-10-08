@@ -9,6 +9,49 @@ import {
 export class AssetLoader {
   constructor(scene) {
     this.scene = scene;
+    this.loadedAssets = {
+      critical: false,
+      secondary: false,
+      optional: false
+    };
+  }
+
+  // Carga solo assets críticos para empezar rápido
+  preloadCritical() {
+    // Cargar solo assets necesarios para el menú principal
+    const criticalImages = IMAGE_ASSETS.filter(asset => 
+      ['ui-arrows'].includes(asset.key)
+    );
+    
+    criticalImages.forEach(({ key, url }) => {
+      this.scene.load.image(key, url);
+    });
+
+    // Cargar solo la fuente bitmap crítica
+    const criticalFont = BITMAP_FONTS[0];
+    this.scene.load.bitmapFont(
+      criticalFont.key,
+      criticalFont.textureURL,
+      criticalFont.dataURL
+    );
+  }
+
+  // Carga assets del juego principal (sin audio)
+  preloadGameAssets() {
+    this.loadImages();
+    this.loadTileBlocks();
+    this.loadSpriteSheets();
+  }
+
+  // Carga audio en segundo plano
+  preloadAudio() {
+    AUDIO_ASSETS.music.forEach(({ key, url }) => {
+      this.scene.load.audio(key, url);
+    });
+
+    AUDIO_ASSETS.sfx.forEach(({ key, url }) => {
+      this.scene.load.audio(key, url);
+    });
   }
 
   preload() {
