@@ -26,7 +26,7 @@ export class Block extends Phaser.Physics.Arcade.Sprite {
 		this.bounceOffset = bounceOffset;
 		this.isActivated = false;
 		this.isBumping = false;
-		this.setOrigin(0.5, 0);
+		this.setOrigin(0.0, 0);
 		this.refreshBody();
 	}
 

@@ -103,7 +103,7 @@ export const TileSymbols = Object.freeze({
 
 export const LEVEL_DEFINITIONS = {
   '1-1': {
-    key: '1-1',
+    key: '1-1', 
     theme: 'overworld',
     backgroundColor: '#5C94FC',
     musicKey: 'music-overworld-theme',
@@ -113,9 +113,9 @@ export const LEVEL_DEFINITIONS = {
     tilemap: level1Tilemap,
     playerSpawn: { tileX: 2, tileY: 12 },
     enemySpawns: [
-      { type: 'goomba', texture: 'goomba-overworld', tileX: 12, tileY: 12 },
-      { type: 'goomba', texture: 'goomba-overworld', tileX: 28, tileY: 12 },
-      { type: 'koopa', texture: 'koopa', tileX: 46, tileY: 12 }
+      { type: 'goomba', texture: 'goomba-overworld', tileX: 12, tileY: 10 },
+      { type: 'goomba', texture: 'goomba-overworld', tileX: 28, tileY: 10 },
+      { type: 'koopa', texture: 'koopa', tileX: 46, tileY: 11 }
     ],
     collectibleSpawns: [
       { type: 'coin', texture: 'coin-spin', animationKey: 'coin-spin', tileX: 23, tileY: 6 },
@@ -131,8 +131,8 @@ export const LEVEL_DEFINITIONS = {
       empty: 'empty-block-overworld'
     },
     blockContents: [
-      { tileX: 18, tileY: 5, payload: { type: 'super-mushroom', texture: 'super-mushroom' } },
-      { tileX: 23, tileY: 4, payload: { type: 'coin', score: 200 } },
+      { tileX: 18, tileY: 8, payload: { type: 'super-mushroom', texture: 'super-mushroom' } },
+      { tileX: 23, tileY: 8, payload: { type: 'coin', score: 200 } },
       { tileX: 13, tileY: 7, payload: { type: 'coin', score: 200 } },
       { tileX: 10, tileY: 9, payload: { type: 'coin', score: 200 } },
       { tileX: 27, tileY: 11, payload: { type: 'coin', score: 200 } }

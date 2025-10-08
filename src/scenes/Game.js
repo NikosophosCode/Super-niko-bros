@@ -203,10 +203,10 @@ export class GameScene extends BaseScene {
 				this.gameState.addScore(100);
 				this.eventBus.emit(GameEvents.COIN_COLLECTED, coins);
 				this.eventBus.emit(GameEvents.SCORE_CHANGED, this.gameState.score);
-				this.sound.play('sfx-coin');
+				this.sound.play('sfx-coin', { volume: 0.3 });
 				if (this.gameState.lives > previousLives) {
 					this.eventBus.emit(GameEvents.LIFE_GAINED, this.gameState.lives);
-					this.sound.play('sfx-life');
+					this.sound.play('sfx-life', { volume: 0.3 });
 				}
 				break;
 			}
@@ -268,11 +268,11 @@ export class GameScene extends BaseScene {
 				const coins = this.gameState.addCoin(payload.amount ?? 1);
 				this.awardScore(payload.score ?? BLOCK_COIN_SCORE);
 				this.eventBus.emit(GameEvents.COIN_COLLECTED, coins);
-				this.sound.play('sfx-coin');
+				this.sound.play('sfx-coin', { volume: 0.3 });
 
 				if (this.gameState.lives > previousLives) {
 					this.eventBus.emit(GameEvents.LIFE_GAINED, this.gameState.lives);
-					this.sound.play('sfx-life');
+					this.sound.play('sfx-life', { volume: 0.3 });
 				}
 				break;
 			}
