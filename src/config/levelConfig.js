@@ -149,9 +149,9 @@ export const LEVEL_DEFINITIONS = {
     tilemap: level2Tilemap,
     playerSpawn: { tileX: 2, tileY: 12 },
     enemySpawns: [
-      { type: 'goomba', texture: 'goomba-underground', tileX: 16, tileY: 12 },
-      { type: 'goomba', texture: 'goomba-underground', tileX: 30, tileY: 12 },
-      { type: 'koopa', texture: 'koopa', tileX: 48, tileY: 12 }
+      { type: 'goomba', texture: 'goomba-underground', tileX: 16, tileY: 10 },
+      { type: 'goomba', texture: 'goomba-underground', tileX: 30, tileY: 10 },
+      { type: 'koopa', texture: 'koopa', tileX: 48, tileY: 11 }
     ],
     collectibleSpawns: [
       { type: 'coin', texture: 'coin-spin', animationKey: 'coin-spin', tileX: 21, tileY: 7 },

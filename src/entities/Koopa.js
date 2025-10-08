@@ -24,7 +24,7 @@ export class Koopa extends Phaser.Physics.Arcade.Sprite {
 	initPhysics() {
 		this.setCollideWorldBounds(true);
 		this.body.setGravityY(300);
-		this.body.setSize(14, 24);
+		this.body.setSize(14, 22);
 		this.body.setOffset(1, 8);
 		this.setVelocityX(this.speed * this.direction);
 	}
