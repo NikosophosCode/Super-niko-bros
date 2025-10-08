@@ -274,7 +274,7 @@ export const AnimationConfig = [
   {
     key: AnimationKeys.COLLECTIBLES.COIN,
     frames: mapFrames('coin-spin', [0, 1, 2, 3]),
-    frameRate: 12,
+    frameRate: 8,
     repeat: repeatForever
   },
   {
@@ -312,13 +312,13 @@ export const AnimationConfig = [
   {
     key: AnimationKeys.BLOCKS.MYSTERY_OVERWORLD,
     frames: mapFrames('mystery-block-overworld', [0, 1, 2]),
-    frameRate: 8,
+    frameRate: 4,
     repeat: repeatForever
   },
   {
     key: AnimationKeys.BLOCKS.MYSTERY_UNDERGROUND,
     frames: mapFrames('mystery-block-underground', [0, 1, 2]),
-    frameRate: 8,
+    frameRate: 4,
     repeat: repeatForever
   }
 ];
