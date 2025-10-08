@@ -5,16 +5,10 @@ export class Goomba extends Phaser.Physics.Arcade.Sprite {
 	constructor(scene, x, y, texture = 'goomba-overworld') {
 		super(scene, x, y, texture);
 		scene.add.existing(this);
-		scene.physics.add.existing(this);
 
 		this.scene = scene;
 		this.speed = 30;
 		this.alive = true;
-		this.setCollideWorldBounds(true);
-		this.body.setSize(14, 14);
-		this.body.setOffset(1, 2);
-		this.setVelocityX(-this.speed);
-		this.setBounceX(1);
 		this.animationKeys = texture.includes('underground')
 			? {
 				walk: AnimationKeys.ENEMIES.GOOMBA.UNDERGROUND_WALK,
@@ -25,6 +19,15 @@ export class Goomba extends Phaser.Physics.Arcade.Sprite {
 				squashed: AnimationKeys.ENEMIES.GOOMBA.OVERWORLD_SQUASHED
 			};
 		this.play(this.animationKeys.walk);
+	}
+
+	initPhysics() {
+		this.setCollideWorldBounds(true);
+		this.body.setGravityY(300);
+		this.body.setSize(14, 14);
+		this.body.setOffset(1, 2);
+		this.setVelocityX(-this.speed);
+		this.setBounceX(1);
 	}
 
 	update() {

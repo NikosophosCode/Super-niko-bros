@@ -174,6 +174,11 @@ export class LevelManager {
       if (enemy) {
         enemy.setDepth(3);
         this.groups.enemies?.add(enemy);
+        
+        // Inicializar física después de agregar al grupo
+        if (enemy.initPhysics) {
+          enemy.initPhysics();
+        }
       }
     });
   }

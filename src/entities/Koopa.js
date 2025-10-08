@@ -11,7 +11,6 @@ export class Koopa extends Phaser.Physics.Arcade.Sprite {
 	constructor(scene, x, y, texture = 'koopa') {
 		super(scene, x, y, texture);
 		scene.add.existing(this);
-		scene.physics.add.existing(this);
 
 		this.scene = scene;
 		this.speed = 40;
@@ -19,12 +18,12 @@ export class Koopa extends Phaser.Physics.Arcade.Sprite {
 		this.direction = -1;
 		this.alive = true;
 
-		this.initPhysics();
 		this.play(AnimationKeys.ENEMIES.KOOPA.WALK);
 	}
 
 	initPhysics() {
 		this.setCollideWorldBounds(true);
+		this.body.setGravityY(300);
 		this.body.setSize(14, 24);
 		this.body.setOffset(1, 8);
 		this.setVelocityX(this.speed * this.direction);
