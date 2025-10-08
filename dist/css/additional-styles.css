@@ -1,0 +1,72 @@
+/* Estilos adicionales para mejorar la presentación */
+
+/* Personalización de la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Efectos de carga */
+.loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Estilos para móviles */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    #game-container {
+        border-width: 2px;
+        border-radius: 4px;
+    }
+    
+    canvas {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* Efectos de hover para mejorar la interactividad */
+#game-container:hover {
+    transform: scale(1.01);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Estilo para pantalla completa en caso de ser necesario */
+.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background: #5C94FC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

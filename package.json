@@ -1,0 +1,25 @@
+{
+  "name": "super-niko-bros",
+  "version": "0.1.0",
+  "description": "A modern Phaser 3 practice project inspired by classic Mario gameplay.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "phaser",
+    "mario",
+    "platformer",
+    "game"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "phaser": "^3.70.0"
+  },
+  "devDependencies": {
+    "vite": "^5.1.0"
+  }
+}
