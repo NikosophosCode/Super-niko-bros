@@ -4,6 +4,7 @@ import { Koopa } from './Koopa';
 import { Block } from './Block';
 import { Collectible } from './Collectible';
 import { GoalFlag } from './GoalFlag';
+import { Fireball } from './Fireball';
 
 export class EntityFactory {
   constructor(scene) {
@@ -32,5 +33,9 @@ export class EntityFactory {
 
   createGoalFlag(x, y, config) {
     return new GoalFlag(this.scene, x, y, config);
+  }
+
+  createFireball(x, y) {
+    return new Fireball(this.scene, x, y);
   }
 }

@@ -49,6 +49,7 @@ export class UIScene extends BaseScene {
 		this.eventBus.on(GameEvents.COIN_COLLECTED, this.updateCoins, this);
 		this.eventBus.on(GameEvents.LIFE_LOST, this.updateLives, this);
 		this.eventBus.on(GameEvents.LIFE_GAINED, this.updateLives, this);
+		this.eventBus.on(GameEvents.TIMER_CHANGED, this.updateTime, this);
 		this.eventBus.on(GameEvents.TIMER_ALMOST_OUT, this.warnTimer, this);
 
 		this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
@@ -56,6 +57,7 @@ export class UIScene extends BaseScene {
 			this.eventBus.off(GameEvents.COIN_COLLECTED, this.updateCoins, this);
 			this.eventBus.off(GameEvents.LIFE_LOST, this.updateLives, this);
 			this.eventBus.off(GameEvents.LIFE_GAINED, this.updateLives, this);
+			this.eventBus.off(GameEvents.TIMER_CHANGED, this.updateTime, this);
 			this.eventBus.off(GameEvents.TIMER_ALMOST_OUT, this.warnTimer, this);
 		});
 	}
@@ -69,11 +71,18 @@ export class UIScene extends BaseScene {
 	}
 
 	updateLives(lives) {
-		this.labels.world?.setText(`VIDAS ${lives}`);
+		const value = lives ?? this.gameState.lives;
+		this.labels.world?.setText(`VIDAS ${value}`);
+	}
+
+	updateTime(time) {
+		const value = Math.max(0, Math.ceil(time ?? this.gameState.timeRemaining));
+		this.labels.time?.setText(`TIEMPO ${value}`);
+		this.labels.time?.setColor('#ffffff');
 	}
 
 	warnTimer(time) {
-		this.labels.time?.setText(`TIEMPO ${Math.ceil(time)}`);
+		this.updateTime(time);
 		this.labels.time?.setColor('#ff5555');
 	}
 

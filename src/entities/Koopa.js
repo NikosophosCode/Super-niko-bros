@@ -17,6 +17,7 @@ export class Koopa extends Phaser.Physics.Arcade.Sprite {
 		this.speed = 40;
 		this.state = KoopaState.WALKING;
 		this.direction = -1;
+		this.alive = true;
 
 		this.initPhysics();
 		this.play(AnimationKeys.ENEMIES.KOOPA.WALK);
@@ -30,10 +31,19 @@ export class Koopa extends Phaser.Physics.Arcade.Sprite {
 	}
 
 	update() {
+		if (!this.alive) {
+			return;
+		}
+
 		if (this.state === KoopaState.WALKING) {
 			this.updateWalking();
 		} else if (this.state === KoopaState.SHELL_SPIN) {
 			this.setVelocityX(180 * this.direction);
+			if (this.body.blocked.left || this.body.blocked.right) {
+				this.direction *= -1;
+				this.setVelocityX(180 * this.direction);
+				this.setFlipX(this.direction > 0);
+			}
 		}
 	}
 
@@ -59,5 +69,46 @@ export class Koopa extends Phaser.Physics.Arcade.Sprite {
 		this.direction = direction;
 		this.setVelocityX(180 * direction);
 		this.play(AnimationKeys.ENEMIES.KOOPA.SHELL_SPIN, true);
+	}
+
+	stopShell() {
+		this.state = KoopaState.SHELL;
+		this.setVelocityX(0);
+		this.play(AnimationKeys.ENEMIES.KOOPA.SHELL, true);
+	}
+
+	stomp() {
+		if (this.state === KoopaState.WALKING) {
+			this.enterShell();
+			return true;
+		}
+
+		if (this.state === KoopaState.SHELL_SPIN) {
+			this.stopShell();
+			return false;
+		}
+
+		return false;
+	}
+
+	isShell() {
+		return this.state === KoopaState.SHELL;
+	}
+
+	isSpinning() {
+		return this.state === KoopaState.SHELL_SPIN;
+	}
+
+	isDangerous() {
+		return this.state === KoopaState.WALKING || this.state === KoopaState.SHELL_SPIN;
+	}
+
+	defeat() {
+		if (!this.alive) {
+			return;
+		}
+
+		this.alive = false;
+		this.disableBody(true, true);
 	}
 }

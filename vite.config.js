@@ -1,4 +1,7 @@
 import { defineConfig } from 'vite';
+import { fileURLToPath, URL } from 'node:url';
+
+const pathFromRoot = (relativePath) => fileURLToPath(new URL(relativePath, import.meta.url));
 
 export default defineConfig({
   root: '.',
@@ -15,13 +18,26 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': '/src',
-      '@config': '/src/config',
-      '@scenes': '/src/scenes',
-      '@entities': '/src/entities',
-      '@managers': '/src/managers',
-      '@state': '/src/state',
-      '@utils': '/src/utils'
+      '@': pathFromRoot('./src'),
+      '@config': pathFromRoot('./src/config'),
+      '@scenes': pathFromRoot('./src/scenes'),
+      '@entities': pathFromRoot('./src/entities'),
+      '@managers': pathFromRoot('./src/managers'),
+      '@state': pathFromRoot('./src/state'),
+      '@utils': pathFromRoot('./src/utils')
+    }
+  },
+  test: {
+    environment: 'node',
+    globals: true,
+    alias: {
+      '@': pathFromRoot('./src'),
+      '@config': pathFromRoot('./src/config'),
+      '@scenes': pathFromRoot('./src/scenes'),
+      '@entities': pathFromRoot('./src/entities'),
+      '@managers': pathFromRoot('./src/managers'),
+      '@state': pathFromRoot('./src/state'),
+      '@utils': pathFromRoot('./src/utils')
     }
   }
 });

@@ -13,5 +13,6 @@ export const GameEvents = Object.freeze({
   POWERUP_LOST: 'powerup-lost',
   FIREBALL_THROWN: 'fireball-thrown',
   ENEMY_DEFEATED: 'enemy-defeated',
+  TIMER_CHANGED: 'timer-changed',
   TIMER_ALMOST_OUT: 'timer-almost-out'
 });

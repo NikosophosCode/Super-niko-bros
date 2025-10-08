@@ -20,6 +20,8 @@ export class Mario extends Phaser.Physics.Arcade.Sprite {
 		this.speed = GAME_SETTINGS.player.moveSpeed;
 		this.runSpeed = GAME_SETTINGS.player.runSpeed;
 		this.jumpVelocity = GAME_SETTINGS.player.jumpVelocity;
+		this.fireballCooldown = GAME_SETTINGS.player.fireballCooldown;
+		this.lastFireballTime = 0;
 		this.powerState = MarioPowerState.SMALL;
 		this.isInvulnerable = false;
 		this.initPhysics();
@@ -59,7 +61,7 @@ export class Mario extends Phaser.Physics.Arcade.Sprite {
 
 		if (isOnGround && Phaser.Input.Keyboard.JustDown(up)) {
 			this.setVelocityY(this.jumpVelocity);
-			this.scene.sound.play('sfx-jump');
+			this.scene.sound.play('sfx-jump', { volume: 0.3 });
 		}
 	}
 
@@ -151,7 +153,6 @@ export class Mario extends Phaser.Physics.Arcade.Sprite {
 
 	die() {
 		this.setTint(0xff0000);
-		eventBus.emit(GameEvents.LIFE_LOST);
 	}
 
 	startInvulnerability(duration = 1000) {
@@ -161,5 +162,39 @@ export class Mario extends Phaser.Physics.Arcade.Sprite {
 			this.clearTint();
 			this.safePlay(this.getAnimationSet().IDLE);
 		});
+	}
+
+	getFacingDirection() {
+		return this.flipX ? -1 : 1;
+	}
+
+	canShootFireball(currentTime = 0) {
+		if (this.powerState !== MarioPowerState.FIRE) {
+			return false;
+		}
+
+		return currentTime - this.lastFireballTime >= this.fireballCooldown;
+	}
+
+	recordFireballShot(currentTime = 0) {
+		this.lastFireballTime = currentTime;
+		const animationSet = this.getAnimationSet();
+		if (animationSet.THROW) {
+			this.play(animationSet.THROW, true);
+		}
+	}
+
+	takeDamage() {
+		if (this.isInvulnerable) {
+			return false;
+		}
+
+		if (this.powerState === MarioPowerState.SMALL) {
+			this.die();
+			return true;
+		}
+
+		this.shrink();
+		return false;
 	}
 }

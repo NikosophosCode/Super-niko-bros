@@ -107,6 +107,7 @@ export const LEVEL_DEFINITIONS = {
     theme: 'overworld',
     backgroundColor: '#5C94FC',
     musicKey: 'music-overworld-theme',
+  hurryMusicKey: 'music-overworld-hurry',
     nextLevel: '1-2',
     timeLimit: 400,
     tilemap: level1Tilemap,
@@ -125,14 +126,24 @@ export const LEVEL_DEFINITIONS = {
     blockTextures: {
       ground: 'overworld-floor',
       solid: 'block-overworld',
-      question: 'mystery-block-overworld'
-    }
+      breakable: 'block-overworld',
+      question: 'mystery-block-overworld',
+      empty: 'empty-block-overworld'
+    },
+    blockContents: [
+      { tileX: 18, tileY: 5, payload: { type: 'super-mushroom', texture: 'super-mushroom' } },
+      { tileX: 23, tileY: 4, payload: { type: 'coin', score: 200 } },
+      { tileX: 13, tileY: 7, payload: { type: 'coin', score: 200 } },
+      { tileX: 10, tileY: 9, payload: { type: 'coin', score: 200 } },
+      { tileX: 27, tileY: 11, payload: { type: 'coin', score: 200 } }
+    ]
   },
   '1-2': {
     key: '1-2',
     theme: 'underground',
     backgroundColor: '#1A1C2C',
     musicKey: 'music-underground-theme',
+  hurryMusicKey: 'music-underground-hurry',
     nextLevel: null,
     timeLimit: 300,
     tilemap: level2Tilemap,
@@ -151,8 +162,17 @@ export const LEVEL_DEFINITIONS = {
     blockTextures: {
       ground: 'underground-floor',
       solid: 'block-underground',
-      question: 'mystery-block-underground'
-    }
+      breakable: 'block-underground',
+      question: 'mystery-block-underground',
+      empty: 'empty-block-underground'
+    },
+    blockContents: [
+      { tileX: 21, tileY: 4, payload: { type: 'coin', score: 200 } },
+      { tileX: 15, tileY: 8, payload: { type: 'coin', score: 200 } },
+      { tileX: 33, tileY: 11, payload: { type: 'coin', score: 200 } },
+      { tileX: 36, tileY: 3, payload: { type: 'fire-flower', texture: 'fire-flower-underground' } },
+      { tileX: 40, tileY: 5, payload: { type: 'super-mushroom', texture: 'super-mushroom' } }
+    ]
   }
 };
 

@@ -31,11 +31,13 @@ export class LevelManager {
     this.playerSpawnPoint = { x: 0, y: 0 };
     this.worldBounds = { width: 0, height: TILEMAP_DIMENSIONS.height * tileHeight };
     this.goalTileFromMap = null;
+    this.blockConfigMap = new Map();
   }
 
   build(levelKey, groups = {}) {
     this.levelConfig = getLevelConfig(levelKey);
     this.goalTileFromMap = null;
+    this.prepareBlockConfigMap();
 
     this.groups.blocks = groups.blocks ?? this.scene.physics.add.staticGroup();
     this.groups.enemies = groups.enemies ?? this.scene.physics.add.group();
@@ -92,17 +94,42 @@ export class LevelManager {
   }
 
   handleTileSymbol(symbol, columnIndex, rowIndex) {
-  const textures = this.levelConfig.blockTextures ?? {};
-  const groundTexture = textures.ground ?? 'overworld-floor';
-  const solidTexture = textures.solid ?? groundTexture;
-  const questionTexture = textures.question ?? solidTexture;
+    const textures = this.levelConfig.blockTextures ?? {};
+    const groundTexture = textures.ground ?? 'overworld-floor';
+    const solidTexture = textures.solid ?? groundTexture;
+    const breakableTexture = textures.breakable ?? solidTexture;
+    const questionTexture = textures.question ?? solidTexture;
+    const emptyTexture = textures.empty ?? 'empty-block-overworld';
+
+    const { texture, options } = this.buildBlockOptions(columnIndex, rowIndex, () => {
+      switch (symbol) {
+        case TileSymbols.GROUND:
+          return {
+            texture: groundTexture,
+            options: { type: BlockType.SOLID }
+          };
+        case TileSymbols.SOLID_BLOCK:
+          return {
+            texture: breakableTexture,
+            options: { type: BlockType.BREAKABLE }
+          };
+        case TileSymbols.QUESTION_BLOCK:
+          return {
+            texture: questionTexture,
+            options: { type: BlockType.QUESTION, depletedTexture: emptyTexture }
+          };
+        default:
+          return {
+            texture: solidTexture,
+            options: { type: BlockType.SOLID }
+          };
+      }
+    });
 
     switch (symbol) {
       case TileSymbols.GROUND: {
         const position = this.tileToWorld(columnIndex, rowIndex, 'bottom');
-  const block = this.factory.createBlock(position.x, position.y, groundTexture, {
-          type: BlockType.SOLID
-        });
+        const block = this.factory.createBlock(position.x, position.y, texture, options);
         block.setDepth(1);
         this.groups.blocks?.add(block);
         block.refreshBody();
@@ -110,9 +137,7 @@ export class LevelManager {
       }
       case TileSymbols.SOLID_BLOCK: {
         const position = this.tileToWorld(columnIndex, rowIndex, 'bottom');
-  const block = this.factory.createBlock(position.x, position.y, solidTexture, {
-          type: BlockType.SOLID
-        });
+        const block = this.factory.createBlock(position.x, position.y, texture, options);
         block.setDepth(2);
         this.groups.blocks?.add(block);
         block.refreshBody();
@@ -120,9 +145,7 @@ export class LevelManager {
       }
       case TileSymbols.QUESTION_BLOCK: {
         const position = this.tileToWorld(columnIndex, rowIndex, 'bottom');
-  const block = this.factory.createBlock(position.x, position.y, questionTexture, {
-          type: BlockType.QUESTION
-        });
+        const block = this.factory.createBlock(position.x, position.y, texture, options);
         block.setDepth(2);
         this.groups.blocks?.add(block);
         block.refreshBody();
@@ -244,5 +267,32 @@ export class LevelManager {
 
   getLevelConfig() {
     return this.levelConfig;
+  }
+
+  prepareBlockConfigMap() {
+    this.blockConfigMap.clear();
+
+    const blocks = this.levelConfig.blockContents ?? [];
+
+    blocks.forEach((block) => {
+      const key = `${block.tileX},${block.tileY}`;
+      this.blockConfigMap.set(key, block);
+    });
+  }
+
+  buildBlockOptions(tileX, tileY, defaultsFactory) {
+    const defaults = defaultsFactory();
+    const override = this.blockConfigMap.get(`${tileX},${tileY}`) ?? {};
+
+    return {
+      texture: override.texture ?? defaults.texture,
+      options: {
+        ...defaults.options,
+        ...(override.type ? { type: override.type } : {}),
+        ...(override.payload ? { payload: override.payload } : {}),
+        ...(override.depletedTexture ? { depletedTexture: override.depletedTexture } : {}),
+        ...(override.bounceOffset ? { bounceOffset: override.bounceOffset } : {})
+      }
+    };
   }
 }

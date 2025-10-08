@@ -45,5 +45,15 @@ export class Goomba extends Phaser.Physics.Arcade.Sprite {
 		this.alive = false;
 		this.setVelocity(0, 0);
 		this.play({ key: this.animationKeys.squashed, repeat: 0, hideOnComplete: true });
+		this.scene.time.delayedCall(250, () => this.disableBody(true, true));
+	}
+
+	defeat() {
+		if (!this.alive) {
+			return;
+		}
+
+		this.alive = false;
+		this.disableBody(true, true);
 	}
 }
