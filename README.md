@@ -29,7 +29,7 @@ Proyecto de práctica inspirado en el Mario clásico, construido con [Phaser 3](
 - **Power-ups completos**: Mario puede crecer o adquirir el estado de fuego; cada estado actualiza sprites y colisionadores.
 - **Combate enemigo avanzado**: Stomps, rebotes, Koopas con estados (shell/spin) y derrotas por fuego o cascarón.
 - **Fireballs reutilizables**: Proyectiles con físicas, rebotes basados en colisiones y animación de explosión.
-- **Bloques inteligentes**: Pregunta, rompibles y vacíos con rebote animado, payloads configurables y sonidos.
+- **Bloques inteligentes**: Pregunta (con animación de 3 frames), rompibles y vacíos con rebote animado, payloads configurables y sonidos.
 - **Temporizador con modo apuro**: HUD muestra el conteo, cambia de color y acelera la música cuando quedan ≤100 segundos.
 - **Audio reactivo**: `AudioManager` mezcla música de nivel y versión “hurry”, además de FX para power-ups, coins, shells, etc.
 - **HUD desacoplado**: `UIScene` escucha eventos globales para actualizar puntuación, monedas, vidas y tiempo.

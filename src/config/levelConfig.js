@@ -127,7 +127,7 @@ export const LEVEL_DEFINITIONS = {
       ground: 'overworld-floor',
       solid: 'block-overworld',
       breakable: 'block-overworld',
-      question: 'mystery-block-overworld',
+      question: 'mystery-block-overworld-idle',
       empty: 'empty-block-overworld'
     },
     blockContents: [
@@ -163,7 +163,7 @@ export const LEVEL_DEFINITIONS = {
       ground: 'underground-floor',
       solid: 'block-underground',
       breakable: 'block-underground',
-      question: 'mystery-block-underground',
+      question: 'mystery-block-underground-idle',
       empty: 'empty-block-underground'
     },
     blockContents: [

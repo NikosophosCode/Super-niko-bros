@@ -23,14 +23,12 @@ export const IMAGE_ASSETS = [
 export const TILEBLOCK_ASSETS = [
   { key: 'block-overworld', url: 'blocks/overworld/block.png' },
   { key: 'brick-debris-overworld', url: 'blocks/overworld/brick-debris.png' },
-  { key: 'mystery-block-overworld', url: 'blocks/overworld/misteryBlock.png' },
   { key: 'custom-block-overworld', url: 'blocks/overworld/customBlock.png' },
   { key: 'immovable-block-overworld', url: 'blocks/overworld/immovableBlock.png' },
   { key: 'empty-block-overworld', url: 'blocks/overworld/emptyBlock.png' },
   { key: 'block-underground', url: 'blocks/underground/block.png' },
   { key: 'block2-underground', url: 'blocks/underground/block2.png' },
   { key: 'brick-debris-underground', url: 'blocks/underground/brick-debris.png' },
-  { key: 'mystery-block-underground', url: 'blocks/underground/misteryBlock.png' },
   { key: 'immovable-block-underground', url: 'blocks/underground/immovableBlock.png' },
   { key: 'empty-block-underground', url: 'blocks/underground/emptyBlock.png' }
 ];
@@ -109,6 +107,16 @@ export const SPRITESHEET_ASSETS = [
   {
     key: 'fire-flower-underground',
     url: 'collectibles/underground/fire-flower.png',
+    frameConfig: { frameWidth: 16, frameHeight: 16 }
+  },
+  {
+    key: 'mystery-block-overworld',
+    url: 'blocks/overworld/misteryBlock.png',
+    frameConfig: { frameWidth: 16, frameHeight: 16 }
+  },
+  {
+    key: 'mystery-block-underground',
+    url: 'blocks/underground/misteryBlock.png',
     frameConfig: { frameWidth: 16, frameHeight: 16 }
   }
 ];

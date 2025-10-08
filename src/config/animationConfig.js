@@ -55,6 +55,10 @@ export const AnimationKeys = Object.freeze({
     FIRE_FLOWER_OVERWORLD: 'powerup-fire-flower-overworld',
     FIRE_FLOWER_UNDERGROUND: 'powerup-fire-flower-underground'
   },
+  BLOCKS: {
+    MYSTERY_OVERWORLD: 'mystery-block-overworld-idle',
+    MYSTERY_UNDERGROUND: 'mystery-block-underground-idle'
+  },
   FLAG: {
     POLE: 'flag-pole'
   }
@@ -301,6 +305,20 @@ export const AnimationConfig = [
     key: AnimationKeys.COLLECTIBLES.FIRE_FLOWER_UNDERGROUND,
     frames: mapFrames('fire-flower-underground', [0, 1, 2, 3]),
     frameRate: 6,
+    repeat: repeatForever
+  },
+
+  // Bloques de pregunta animados
+  {
+    key: AnimationKeys.BLOCKS.MYSTERY_OVERWORLD,
+    frames: mapFrames('mystery-block-overworld', [0, 1, 2]),
+    frameRate: 8,
+    repeat: repeatForever
+  },
+  {
+    key: AnimationKeys.BLOCKS.MYSTERY_UNDERGROUND,
+    frames: mapFrames('mystery-block-underground', [0, 1, 2]),
+    frameRate: 8,
     repeat: repeatForever
   }
 ];

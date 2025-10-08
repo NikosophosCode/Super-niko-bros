@@ -16,7 +16,11 @@ export class Block extends Phaser.Physics.Arcade.Sprite {
 		texture,
 		{ type = BlockType.SOLID, payload = null, depletedTexture = null, bounceOffset = 6 } = {}
 	) {
-		super(scene, x, y, texture);
+		// Determinar si la textura es una clave de animación
+		const isAnimation = scene.anims.exists(texture);
+		const baseTexture = isAnimation ? texture.replace('-idle', '') : texture;
+		
+		super(scene, x, y, baseTexture, 0);
 		scene.add.existing(this);
 		scene.physics.add.existing(this, true);
 
@@ -28,6 +32,11 @@ export class Block extends Phaser.Physics.Arcade.Sprite {
 		this.isBumping = false;
 		this.setOrigin(0.0, 0);
 		this.refreshBody();
+
+		// Reproducir animación si es un bloque de pregunta con animación
+		if (this.type === BlockType.QUESTION && isAnimation) {
+			this.play(texture);
+		}
 	}
 
 	bump() {
@@ -81,6 +90,10 @@ export class Block extends Phaser.Physics.Arcade.Sprite {
 		}
 
 		if (this.type === BlockType.QUESTION && this.depletedTexture) {
+			// Detener la animación antes de cambiar la textura
+			if (this.anims && this.anims.isPlaying) {
+				this.stop();
+			}
 			this.setTexture(this.depletedTexture);
 		}
 
