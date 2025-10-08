@@ -83,16 +83,19 @@ export class GameScene extends BaseScene {
 	}
 
 	resetPlayer(spawnPoint) {
-		if (this.player) {
-			this.player.setPosition(spawnPoint.x, spawnPoint.y);
-			this.player.setVelocity(0, 0);
-			this.player.body.enable = true;
-			this.player.setActive(true).setVisible(true);
+		const hasLivePlayer = this.player && this.player.body;
+
+		if (!hasLivePlayer) {
+			this.player?.destroy();
+			this.player = this.factory.createMario(spawnPoint.x, spawnPoint.y);
+			this.player.setDepth(10);
 			return;
 		}
 
-		this.player = this.factory.createMario(spawnPoint.x, spawnPoint.y);
-		this.player.setDepth(10);
+		this.player.setPosition(spawnPoint.x, spawnPoint.y);
+		this.player.setVelocity(0, 0);
+		this.player.body.enable = true;
+		this.player.setActive(true).setVisible(true);
 	}
 
 	setupWorldBounds() {

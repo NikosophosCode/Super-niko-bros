@@ -74,7 +74,17 @@ export class LevelManager {
 
   clearLevel() {
     Object.values(this.groups).forEach((group) => {
-      group?.clear(true, true);
+      if (!group || typeof group.clear !== 'function') {
+        return;
+      }
+
+      const hasChildren = group.children && typeof group.children === 'object';
+
+      if (!hasChildren) {
+        return;
+      }
+
+      group.clear(true, true);
     });
 
     this.goalZone?.destroy();

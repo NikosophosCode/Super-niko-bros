@@ -49,7 +49,7 @@ export const SPRITESHEET_ASSETS = [
   {
     key: 'mario-fire',
     url: 'entities/mario-fire.png',
-    frameConfig: { frameWidth: 16, frameHeight: 32 }
+    frameConfig: { frameWidth: 18, frameHeight: 32 }
   },
   {
     key: 'goomba-overworld',

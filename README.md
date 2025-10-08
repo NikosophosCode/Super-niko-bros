@@ -63,7 +63,6 @@ Los niveles se describen en `src/config/levelConfig.js` mediante tilemaps 2D de 
 
 ## 🧪 Próximos pasos sugeridos
 
-- Completar animaciones pendientes en `config/animationConfig.js` y asociarlas a los nuevos collectibles.
 - Añadir físicas y daño para enemigos (stomps, shells, fireballs) y colisiones avanzadas con bloques.
 - Integrar temporizador en HUD y acelerar música cuando quede poco tiempo.
 - Escribir pruebas ligeras para `LevelManager`/`gameState` y configurar CI básica.

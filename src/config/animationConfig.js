@@ -173,13 +173,13 @@ export const AnimationConfig = [
   },
   {
     key: AnimationKeys.MARIO.FIRE.JUMP,
-    frames: mapFrames('mario-fire', [4]),
+    frames: mapFrames('mario-fire', [5]),
     frameRate: 1,
     repeat: repeatForever
   },
   {
     key: AnimationKeys.MARIO.FIRE.CROUCH,
-    frames: mapFrames('mario-fire', [5]),
+    frames: mapFrames('mario-fire', [4]),
     frameRate: 1,
     repeat: repeatForever
   },
