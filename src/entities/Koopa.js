@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { AnimationKeys } from '@config/animationConfig';
 
 export const KoopaState = Object.freeze({
 	WALKING: 'walking',
@@ -18,6 +19,7 @@ export class Koopa extends Phaser.Physics.Arcade.Sprite {
 		this.direction = -1;
 
 		this.initPhysics();
+		this.play(AnimationKeys.ENEMIES.KOOPA.WALK);
 	}
 
 	initPhysics() {
@@ -49,11 +51,13 @@ export class Koopa extends Phaser.Physics.Arcade.Sprite {
 		this.body.setSize(14, 16);
 		this.body.setOffset(1, 8);
 		this.setVelocityX(0);
+		this.play(AnimationKeys.ENEMIES.KOOPA.SHELL, true);
 	}
 
 	kick(direction = 1) {
 		this.state = KoopaState.SHELL_SPIN;
 		this.direction = direction;
 		this.setVelocityX(180 * direction);
+		this.play(AnimationKeys.ENEMIES.KOOPA.SHELL_SPIN, true);
 	}
 }

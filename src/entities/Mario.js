@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { GAME_SETTINGS } from '@config/gameSettings';
 import { GameEvents } from '@config/eventKeys';
 import { eventBus } from '@managers/EventBus';
+import { AnimationKeys } from '@config/animationConfig';
 
 export const MarioPowerState = Object.freeze({
 	SMALL: 'small',
@@ -22,6 +23,7 @@ export class Mario extends Phaser.Physics.Arcade.Sprite {
 		this.powerState = MarioPowerState.SMALL;
 		this.isInvulnerable = false;
 		this.initPhysics();
+		this.play(AnimationKeys.MARIO.SMALL.IDLE);
 	}
 
 	initPhysics() {
@@ -38,6 +40,7 @@ export class Mario extends Phaser.Physics.Arcade.Sprite {
 		}
 
 		this.handleMovement(cursors);
+		this.updateAnimation(cursors);
 	}
 
 	handleMovement({ left, right, up, shift }) {
@@ -60,6 +63,55 @@ export class Mario extends Phaser.Physics.Arcade.Sprite {
 		}
 	}
 
+	updateAnimation(cursors) {
+		const isOnGround = this.body.blocked.down;
+		const absVelocityX = Math.abs(this.body.velocity.x);
+		const animationSet = this.getAnimationSet();
+
+		if (!isOnGround) {
+			this.safePlay(animationSet.JUMP);
+			return;
+		}
+
+		if (cursors.down?.isDown && animationSet.CROUCH) {
+			this.safePlay(animationSet.CROUCH);
+			return;
+		}
+
+		if (absVelocityX > 10) {
+			const isRunning = absVelocityX >= this.runSpeed - 10;
+			const key = isRunning && animationSet.RUN_FAST ? animationSet.RUN_FAST : animationSet.RUN;
+			this.safePlay(key);
+			return;
+		}
+
+		this.safePlay(animationSet.IDLE);
+	}
+
+	getAnimationSet() {
+		switch (this.powerState) {
+			case MarioPowerState.SUPER:
+				return AnimationKeys.MARIO.SUPER;
+			case MarioPowerState.FIRE:
+				return AnimationKeys.MARIO.FIRE;
+			case MarioPowerState.SMALL:
+			default:
+				return AnimationKeys.MARIO.SMALL;
+		}
+	}
+
+	safePlay(key) {
+		if (!key) {
+			return;
+		}
+
+		if (this.anims.currentAnim?.key === key) {
+			return;
+		}
+
+		this.play(key, true);
+	}
+
 	grow() {
 		if (this.powerState !== MarioPowerState.SMALL) {
 			return;
@@ -69,12 +121,16 @@ export class Mario extends Phaser.Physics.Arcade.Sprite {
 		this.setTexture('mario-grown');
 		this.body.setSize(16, 32);
 		this.body.setOffset(0, 0);
+		this.safePlay(AnimationKeys.MARIO.SUPER.IDLE);
 		eventBus.emit(GameEvents.POWERUP_OBTAINED, this.powerState);
 	}
 
 	enableFirePower() {
 		this.powerState = MarioPowerState.FIRE;
 		this.setTexture('mario-fire');
+		this.body.setSize(16, 32);
+		this.body.setOffset(0, 0);
+		this.safePlay(AnimationKeys.MARIO.FIRE.IDLE);
 		eventBus.emit(GameEvents.POWERUP_OBTAINED, this.powerState);
 	}
 
@@ -89,6 +145,7 @@ export class Mario extends Phaser.Physics.Arcade.Sprite {
 		this.body.setSize(14, 16);
 		this.body.setOffset(1, 0);
 		this.startInvulnerability();
+		this.safePlay(AnimationKeys.MARIO.SMALL.IDLE);
 		eventBus.emit(GameEvents.POWERUP_LOST, this.powerState);
 	}
 
@@ -102,6 +159,7 @@ export class Mario extends Phaser.Physics.Arcade.Sprite {
 		this.scene.time.delayedCall(duration, () => {
 			this.isInvulnerable = false;
 			this.clearTint();
+			this.safePlay(this.getAnimationSet().IDLE);
 		});
 	}
 }

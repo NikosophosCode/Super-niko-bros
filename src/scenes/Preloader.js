@@ -1,6 +1,7 @@
 import { BaseScene } from './BaseScene';
 import { SceneKeys } from '@config/sceneKeys';
 import { AssetLoader } from '@managers/AssetLoader';
+import { registerAnimations } from '@config/animationConfig';
 
 export class PreloaderScene extends BaseScene {
 	constructor() {
@@ -57,6 +58,7 @@ export class PreloaderScene extends BaseScene {
 	}
 
 	create() {
+		registerAnimations(this);
 		this.scene.start(SceneKeys.MAIN_MENU);
 	}
 }

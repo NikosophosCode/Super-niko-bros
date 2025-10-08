@@ -39,12 +39,12 @@ export const SPRITESHEET_ASSETS = [
   {
     key: 'mario-small',
     url: 'entities/mario.png',
-    frameConfig: { frameWidth: 16, frameHeight: 16 }
+    frameConfig: { frameWidth: 18, frameHeight: 16 }
   },
   {
     key: 'mario-grown',
     url: 'entities/mario-grown.png',
-    frameConfig: { frameWidth: 16, frameHeight: 32 }
+    frameConfig: { frameWidth: 18, frameHeight: 32 }
   },
   {
     key: 'mario-fire',
@@ -69,17 +69,17 @@ export const SPRITESHEET_ASSETS = [
   {
     key: 'shell',
     url: 'entities/shell.png',
-    frameConfig: { frameWidth: 16, frameHeight: 16 }
+    frameConfig: { frameWidth: 16, frameHeight: 15 }
   },
   {
     key: 'fireball',
     url: 'entities/fireball.png',
-    frameConfig: { frameWidth: 16, frameHeight: 16 }
+    frameConfig: { frameWidth: 8, frameHeight: 8 }
   },
   {
     key: 'fireball-explosion',
     url: 'entities/fireball-explosion.png',
-    frameConfig: { frameWidth: 32, frameHeight: 32 }
+    frameConfig: { frameWidth: 16, frameHeight: 16 }
   },
   {
     key: 'coin-spin',
@@ -89,7 +89,7 @@ export const SPRITESHEET_ASSETS = [
   {
     key: 'ground-coin',
     url: 'collectibles/underground/ground-coin.png',
-    frameConfig: { frameWidth: 16, frameHeight: 16 }
+    frameConfig: { frameWidth: 15, frameHeight: 14 }
   },
   {
     key: 'super-mushroom',

@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { AnimationKeys } from '@config/animationConfig';
 
 export class Goomba extends Phaser.Physics.Arcade.Sprite {
 	constructor(scene, x, y, texture = 'goomba-overworld') {
@@ -14,6 +15,16 @@ export class Goomba extends Phaser.Physics.Arcade.Sprite {
 		this.body.setOffset(1, 2);
 		this.setVelocityX(-this.speed);
 		this.setBounceX(1);
+		this.animationKeys = texture.includes('underground')
+			? {
+				walk: AnimationKeys.ENEMIES.GOOMBA.UNDERGROUND_WALK,
+				squashed: AnimationKeys.ENEMIES.GOOMBA.UNDERGROUND_SQUASHED
+			}
+			: {
+				walk: AnimationKeys.ENEMIES.GOOMBA.OVERWORLD_WALK,
+				squashed: AnimationKeys.ENEMIES.GOOMBA.OVERWORLD_SQUASHED
+			};
+		this.play(this.animationKeys.walk);
 	}
 
 	update() {
@@ -33,6 +44,6 @@ export class Goomba extends Phaser.Physics.Arcade.Sprite {
 	stomp() {
 		this.alive = false;
 		this.setVelocity(0, 0);
-		this.play({ key: 'goomba-squashed', repeat: 0, hideOnComplete: true });
+		this.play({ key: this.animationKeys.squashed, repeat: 0, hideOnComplete: true });
 	}
 }
