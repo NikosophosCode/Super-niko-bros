@@ -14,18 +14,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'phaser': ['phaser'],
-          'game-core': [
-            './src/scenes/Game.js',
-            './src/entities/Mario.js',
-            './src/managers/LevelManager.js'
-          ],
-          'game-entities': [
-            './src/entities/Goomba.js',
-            './src/entities/Koopa.js',
-            './src/entities/Block.js',
-            './src/entities/Collectible.js'
-          ]
+          'phaser': ['phaser']
         }
       }
     },
@@ -35,7 +24,7 @@ export default defineConfig({
     minify: 'terser',
     terserOptions: {
       compress: {
-        drop_console: true, // Eliminar console.logs en producción
+        drop_console: false, // Mantener console.logs para debugging
         drop_debugger: true
       }
     }
