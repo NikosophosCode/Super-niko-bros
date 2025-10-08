@@ -5,7 +5,7 @@ const pathFromRoot = (relativePath) => fileURLToPath(new URL(relativePath, impor
 
 export default defineConfig({
   root: '.',
-  base: './',
+  base: '/',
   publicDir: 'assets',
   build: {
     outDir: 'dist',
