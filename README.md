@@ -25,7 +25,7 @@ src/
 - **BootScene**: Carga fuentes custom y arranca el `Preloader`.
 - **PreloaderScene**: Muestra barra de progreso y usa `AssetLoader` para registrar imágenes, spritesheets, audio y fuentes bitmap.
 - **MainMenuScene**: Pantalla principal con instrucciones y transición al juego.
-- **GameScene**: Crea mundo, cámara, física y entidades base (jugador, bloques, enemigos) y delega audio al `AudioManager`.
+- **GameScene**: Orquesta niveles usando `LevelManager`, delega la creación de entidades al `EntityFactory`, controla la cámara y envía eventos al HUD.
 - **UIScene**: HUD desacoplado que escucha eventos (`GameEvents`) para reflejar puntuaciones, monedas, vidas y tiempo.
 - **GameOverScene**: Permite reintentar o volver al menú.
 
@@ -50,10 +50,20 @@ npm run preview # Sirve la build producida para comprobarla
 
 > Nota: En Windows PowerShell, ejecuta los comandos dentro de la carpeta raíz del proyecto.
 
-## 🗺️ Próximos pasos
+## 🌍 Sistema de niveles
 
-- Definir animaciones (`config/animationConfig.js`) mapeando los sprites PNG con sus frames.
-- Construir niveles (tilemaps, spawn points, reglas de progresión y banderas de meta).
-- Implementar mecánicas completas: movimiento pulido de Mario, power-ups, IA enemiga, bloques especiales, partículas.
-- Ajustar audio reactivo (ej. transición a música de prisa al bajar el temporizador).
-- Añadir tests ligeros para lógica pura (estado, utilidades) y un flujo de CI sencillo.
+Los niveles se describen en `src/config/levelConfig.js` mediante tilemaps 2D de texto:
+
+- Cada carácter representa un tile (`X` suelo, `B` bloque sólido, `?` bloque de pregunta, `.` vacío, `F` bandera).
+- Se definen `enemySpawns`, `collectibleSpawns` y `goal` para colocar entidades.
+- `blockTextures` permite reutilizar la misma estructura en estilos overworld/underground.
+- `playerSpawn`, `timeLimit` y `nextLevel` controlan progresión y HUD.
+
+`LevelManager` convierte esta configuración en geometría real: crea plataformas, aparece enemigos/coleccionables con `EntityFactory`, sitúa la bandera y ajusta los límites del mundo/cámara. `GameScene` consume esta API para reiniciar, completar y encadenar niveles.
+
+## 🧪 Próximos pasos sugeridos
+
+- Completar animaciones pendientes en `config/animationConfig.js` y asociarlas a los nuevos collectibles.
+- Añadir físicas y daño para enemigos (stomps, shells, fireballs) y colisiones avanzadas con bloques.
+- Integrar temporizador en HUD y acelerar música cuando quede poco tiempo.
+- Escribir pruebas ligeras para `LevelManager`/`gameState` y configurar CI básica.

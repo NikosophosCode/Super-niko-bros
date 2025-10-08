@@ -17,6 +17,8 @@ export class Block extends Phaser.Physics.Arcade.Sprite {
 		this.type = type;
 		this.payload = payload;
 		this.isActivated = false;
+		this.setOrigin(0.5, 0);
+		this.refreshBody();
 	}
 
 	activate({ onSpawnPayload } = {}) {

@@ -2,6 +2,8 @@ import { Mario } from './Mario';
 import { Goomba } from './Goomba';
 import { Koopa } from './Koopa';
 import { Block } from './Block';
+import { Collectible } from './Collectible';
+import { GoalFlag } from './GoalFlag';
 
 export class EntityFactory {
   constructor(scene) {
@@ -22,5 +24,13 @@ export class EntityFactory {
 
   createBlock(x, y, texture, config) {
     return new Block(this.scene, x, y, texture, config);
+  }
+
+  createCollectible(x, y, texture, config) {
+    return new Collectible(this.scene, x, y, texture, config);
+  }
+
+  createGoalFlag(x, y, config) {
+    return new GoalFlag(this.scene, x, y, config);
   }
 }

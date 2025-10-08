@@ -24,7 +24,7 @@ export class MainMenuScene extends BaseScene {
 			.setOrigin(0.5);
 
 		this.add
-			.image(width / 2, height / 2 + 60, 'ui-arrows')
+			.image(width / 4, height / 4 + 60, 'ui-arrows')
 			.setOrigin(0.5)
 			.setScale(0.8);
 

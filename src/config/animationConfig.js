@@ -128,13 +128,13 @@ export const AnimationConfig = [
   },
   {
     key: AnimationKeys.MARIO.SUPER.JUMP,
-    frames: mapFrames('mario-grown', [4]),
+    frames: mapFrames('mario-grown', [5]),
     frameRate: 1,
     repeat: repeatForever
   },
   {
     key: AnimationKeys.MARIO.SUPER.CROUCH,
-    frames: mapFrames('mario-grown', [5]),
+    frames: mapFrames('mario-grown', [4]),
     frameRate: 1,
     repeat: repeatForever
   },
