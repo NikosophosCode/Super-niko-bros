@@ -567,6 +567,7 @@ export class GameScene extends BaseScene {
 		this.player.body.setVelocity(0, -260);
 		this.player.body.checkCollision.none = true;
 		this.player.anims.stop();
+		this.player.setFrame(4); // Frame de muerte de Mario
 		this.audioManager.fadeOutMusic();
 		this.audioManager.playSfx('music-gameover');
 
