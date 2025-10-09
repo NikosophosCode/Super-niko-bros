@@ -321,10 +321,29 @@ export class GameScene extends BaseScene {
 
 		const playerBody = player.body;
 		const enemyBody = enemy.body;
-		const enemyTop = enemyBody?.top ?? enemy.y;
-		const playerBottom = playerBody?.bottom ?? player.y;
-		const isStomp =
-			playerBody.velocity.y > 0 && playerBottom <= enemyTop + 8 && playerBody.bottom > enemyTop;
+		
+		// En Phaser, cuando se usa collider, necesitamos verificar TOUCHING para saber 
+		// desde qué dirección ocurrió la colisión
+		const playerTouchingDown = playerBody.touching.down;
+		const enemyTouchingUp = enemyBody.touching.up;
+		
+		// También verificamos la velocidad de caída de Mario
+		const isPlayerFalling = playerBody.velocity.y > 0;
+		
+		// Un stomp ocurre cuando:
+		// 1. Mario está tocando hacia abajo (su parte inferior toca algo)
+		// 2. El enemigo está tocando hacia arriba (algo lo toca desde arriba)
+		// 3. Mario estaba cayendo justo antes de la colisión
+		const isStomp = playerTouchingDown && enemyTouchingUp && playerBody.velocity.y >= 0;
+		
+		// Debug: ver valores en consola
+		console.log('🎮 Collision Debug:', { 
+			playerTouchingDown,
+			enemyTouchingUp,
+			playerVelY: playerBody.velocity.y.toFixed(2),
+			isStomp,
+			enemyType: enemy.constructor.name
+		});
 
 		if (isStomp) {
 			this.bouncePlayer();
@@ -548,13 +567,14 @@ export class GameScene extends BaseScene {
 		this.player.body.setVelocity(0, -260);
 		this.player.body.checkCollision.none = true;
 		this.player.anims.stop();
+		this.player.setFrame(4); // Frame de muerte de Mario
 		this.audioManager.fadeOutMusic();
-		this.audioManager.playSfx('sfx-powerdown');
+		this.audioManager.playSfx('music-gameover');
 
 		const remainingLives = this.gameState.loseLife();
 		this.eventBus.emit(GameEvents.LIFE_LOST, remainingLives);
 
-		const delay = 1200;
+		const delay = 2800;
 
 		if (remainingLives <= 0) {
 			this.eventBus.emit(GameEvents.GAME_OVER, reason);
