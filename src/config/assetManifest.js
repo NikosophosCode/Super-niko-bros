@@ -1,5 +1,4 @@
 export const IMAGE_ASSETS = [
-  { key: 'ui-arrows', url: 'controls/arrows.png' },
   { key: 'flag', url: 'scenery/final-flag.png' },
   { key: 'flag-mast', url: 'scenery/flag-mast.png' },
   { key: 'castle', url: 'scenery/castle.png' },

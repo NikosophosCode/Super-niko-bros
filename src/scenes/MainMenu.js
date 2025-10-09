@@ -23,11 +23,6 @@ export class MainMenuScene extends BaseScene {
 			})
 			.setOrigin(0.5);
 
-		this.add
-			.image(width / 4, height / 4 + 60, 'ui-arrows')
-			.setOrigin(0.5)
-			.setScale(0.8);
-
 		this.input.keyboard.once('keydown-ENTER', () => {
 			gameState.reset();
 			this.eventBus.emit(GameEvents.START);

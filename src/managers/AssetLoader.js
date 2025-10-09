@@ -19,9 +19,6 @@ export class AssetLoader {
   // Carga solo assets críticos para empezar rápido
   preloadCritical() {
     // Cargar solo assets necesarios para el menú principal
-    const criticalImages = IMAGE_ASSETS.filter(asset => 
-      ['ui-arrows'].includes(asset.key)
-    );
     
     criticalImages.forEach(({ key, url }) => {
       this.scene.load.image(key, url);
